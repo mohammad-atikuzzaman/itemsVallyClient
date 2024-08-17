@@ -1,34 +1,44 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import { TbPlayerTrackNext, TbPlayerTrackPrev } from "react-icons/tb";
+import axios from "axios";
 
 const Home = () => {
-  // this state for all data
-  const [allData, setAllData] = useState([]);
-
   //for pagination
   const itemPerPage = 2;
+  const [count, setCount] = useState(0);
   const [selected, setSelected] = useState(0);
-
-  console.log("selected", selected);
-  const numberOfPages = Math.ceil(allData.length / itemPerPage);
+  const numberOfPages = Math.ceil(count / itemPerPage);
   const pages = [...Array(numberOfPages).keys()];
-  console.log(Math.max(...pages));
 
   // those state for data of category and brand
   const [categories, setCategories] = useState([]);
   const [brands, setBrands] = useState([]);
 
+  // this state for all data
+  const [allData, setAllData] = useState([]);
+
   // those state for filtering data by category and brandName
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
 
+  //sorting system
+  const sortData =(sort)=>{
+    console.log(sort)
+    axios(`http://localhost:3000/sort?system=${sort}`)
+    .then(res => console.log(res.data))
+  }
+
+
   const fetchAllData = () => {
-    fetch(
-      `http://localhost:3000/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}`
-    )
+    fetch(`http://localhost:3000/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}`)
       .then((res) => res.json())
       .then((d) => setAllData(d));
+  };
+  const fetchNumberOfData = () => {
+    fetch("http://localhost:3000/countNumberOfData")
+      .then((res) => res.json())
+      .then((d) => setCount(d.counts));
   };
 
   const fetchCategoryAndBrands = () => {
@@ -68,7 +78,26 @@ const Home = () => {
         </form>
       </div>
       <div className="">
-        <section className="text-right"> shortby</section>
+        <section className="text-right">
+          <div className="dropdown dropdown-end">
+            <div tabIndex={0} role="button" className="btn m-1">
+              Sort By
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+              <li>
+                <button onClick={()=> sortData("lowToHigh")}>Price: Low to high</button>
+              </li>
+              <li>
+                <button onClick={()=> sortData("highToLow")}>Price: High to low</button>
+              </li>
+              <li>
+                <button onClick={()=> sortData("latest")}>Newest first</button>
+              </li>
+            </ul>
+          </div>
+        </section>
         <section className="flex gap-8">
           <aside className="p-4 w-[20%] bg-green-50 space-y-6 rounded-lg">
             <div>
@@ -96,13 +125,13 @@ const Home = () => {
               ))}
             </div>
           </aside>
-          <div>
-            <main className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="">
+            <main className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-4 px-4 md:pb-6 md:px-6 lg:pb-8 lg:px-8 min-h-[50vh]">
               {allData.map((details, i) => (
                 <Card key={i} details={details}></Card>
               ))}
             </main>
-            <div className="space-x-2">
+            <div className="space-x-2 mx-auto pl-4 md:pl-4 lg:pl-6">
               <button
                 onClick={() =>
                   selected > 0 ? setSelected(selected - 1) : setSelected(0)

@@ -1,4 +1,5 @@
 import React from 'react';
+import {  MdOutlineAttachMoney } from 'react-icons/md';
 
 const Card = ({details}) => {
   const {productName, price, description, category, brandName}= details
@@ -11,13 +12,17 @@ const Card = ({details}) => {
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">
-          {productName}
-        </h2>
+        <h2 className="card-title">{productName}</h2>
         <p>{description}</p>
-        <div className="card-actions justify-end">
-          <div className="badge badge-outline">{category}</div>
-          <div className="badge badge-outline">{brandName}</div>
+        <div className='flex justify-between items-center'>
+          <div className='flex items-center gap-1 font-semibold text-gray-500 border px-2 rounded-full'>
+            < MdOutlineAttachMoney />
+            <p>{price}</p>
+          </div>
+          <div className="space-x-2">
+            <div className="badge badge-outline">{category}</div>
+            <div className="badge badge-outline">{brandName}</div>
+          </div>
         </div>
       </div>
     </div>
