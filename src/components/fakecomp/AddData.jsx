@@ -11,9 +11,6 @@ const AddData = () => {
     const description = form.description.value
     const price = form.price.value
     const category = form.category.value
-    
-    const creationTime = new Date().toLocaleString();
-
 
     const sendData = {
       productName,
@@ -22,7 +19,6 @@ const AddData = () => {
       description,
       price,
       category,
-      creationTime,
     };
     // console.log(sendData)
    axios.post("http://localhost:3000/items", sendData)

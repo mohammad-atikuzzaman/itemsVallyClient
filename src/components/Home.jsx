@@ -24,9 +24,8 @@ const Home = () => {
 
   //sorting system
   const sortData =(sort)=>{
-    console.log(sort)
     axios(`http://localhost:3000/sort?system=${sort}`)
-    .then(res => console.log(res.data))
+    .then(res => setAllData(res.data))
   }
 
 
