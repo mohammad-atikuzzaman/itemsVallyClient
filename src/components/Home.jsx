@@ -28,6 +28,15 @@ const Home = () => {
     .then(res => setAllData(res.data))
   }
 
+  // searching system
+  const handleSearch=(e)=>{
+    e.preventDefault()
+    const name = e.target.name.value
+    console.log(name)
+    axios(`http://localhost:3000/search-data?name=${name}`)
+    .then(res => console.log(res.data))
+  }
+
 
   const fetchAllData = () => {
     fetch(`http://localhost:3000/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}`)
@@ -61,11 +70,13 @@ const Home = () => {
         <h2 className="text-2xl font-bold text-gray-700">
           Find the desire product_
         </h2>
+
         <form
-          action=""
+          onSubmit={handleSearch}
           className="w-full flex bg-green-50 rounded-lg overflow-hidden border border-green-400">
           <input
             type="text"
+            name="name"
             placeholder="Give input here"
             className="w-[80%]  bg-transparent p-2 border-none outline-none text-green-400"
           />
@@ -75,6 +86,7 @@ const Home = () => {
             className="w-[20%] bg-green-400 font-semibold"
           />
         </form>
+
       </div>
       <div className="">
         <section className="text-right">
