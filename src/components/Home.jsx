@@ -5,7 +5,7 @@ import axios from "axios";
 
 const Home = () => {
   //for pagination
-  const itemPerPage = 2;
+  const itemPerPage = 6;
   const [count, setCount] = useState(0);
   const [selected, setSelected] = useState(0);
   const numberOfPages = Math.ceil(count / itemPerPage);
@@ -126,7 +126,7 @@ const Home = () => {
             </div>
           </aside>
           <div className="">
-            <main className="grid grid-cols-1 md:grid-cols-2 gap-8 pb-4 px-4 md:pb-6 md:px-6 lg:pb-8 lg:px-8 min-h-[50vh]">
+            <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-4 px-4 md:pb-6 md:px-6 lg:pb-8 lg:px-8 min-h-[50vh]">
               {allData.map((details, i) => (
                 <Card key={i} details={details}></Card>
               ))}
