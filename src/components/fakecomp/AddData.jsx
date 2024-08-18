@@ -9,6 +9,7 @@ const AddData = () => {
     const brandName = form.brand.value
     const productImage = form.image.value
     const description = form.description.value
+    const rating = form.rating.value
     const price = form.price.value
     const category = form.category.value
 
@@ -16,6 +17,7 @@ const AddData = () => {
       productName,
       productImage,
       brandName,
+      rating,
       description,
       price,
       category,
