@@ -31,9 +31,8 @@ const Home = () => {
     const name = e.target.name.value
     console.log(name)
     axios(`http://localhost:3000/search-data?name=${name}`)
-    .then(res => console.log(res.data))
+    .then(res => setAllData(res.data))
   }
-
 
   const fetchAllData = () => {
     fetch(`http://localhost:3000/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}&sort=${sort}`)
@@ -64,18 +63,18 @@ const Home = () => {
   return (
     <div className="my-16">
       <div className=" space-y-2">
-        <h2 className="text-2xl font-bold text-gray-700">
+        <h2 className="text-xl font-bold text-gray-700 pl-4 border-l-8 border-green-400">
           Find the desire product_
         </h2>
 
         <form
           onSubmit={handleSearch}
-          className="w-full flex bg-green-50 rounded-lg overflow-hidden border border-green-400">
+          className="w-full flex bg-green-50 rounded-lg overflow-hidden outline-green-400">
           <input
             type="text"
             name="name"
             placeholder="Give input here"
-            className="w-[80%]  bg-transparent p-2 border-none outline-none text-green-400"
+            className="w-[80%]  bg-transparent p-1 border-none outline-green-400 text-green-700 outli"
           />
           <input
             type="submit"
@@ -88,7 +87,7 @@ const Home = () => {
       <div className="">
         <section className="text-right">
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn m-1">
+            <div tabIndex={0} role="button" className="bg-green-100 px-2 rounded-md m-2 font-medium shadow-md">
               Sort By
             </div>
             <ul
@@ -107,9 +106,9 @@ const Home = () => {
           </div>
         </section>
         <section className="flex gap-8">
-          <aside className="p-4 w-[20%] bg-green-50 space-y-6 rounded-lg">
+          <aside className="p-4 w-[20%] text-xs md:text-sm bg-green-50 space-y-6 rounded-lg">
             <div>
-              <h2 className="font-semibold text-xl text-gray-600">
+              <h2 className="font-semibold text-lg text-gray-600">
                 Categories
               </h2>
               {categories.map((ca, i) => (
@@ -122,7 +121,7 @@ const Home = () => {
               ))}
             </div>
             <div>
-              <h2 className="font-semibold text-xl text-gray-600">Brands</h2>
+              <h2 className="font-semibold text-lg text-gray-600">Brands</h2>
               {brands.map((b, i) => (
                 <button
                   onClick={() => setBrand(b)}
@@ -134,11 +133,18 @@ const Home = () => {
             </div>
           </aside>
           <div className="">
-            <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-4 px-4 md:pb-6 md:px-6 lg:pb-8 lg:px-8 min-h-[50vh]">
+           <div>
+            {
+              allData?.length>0 &&  <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-4 px-4 md:pb-6 md:px-6 lg:pb-8 lg:px-8 min-h-[50vh]">
               {allData.map((details, i) => (
                 <Card key={i} details={details}></Card>
               ))}
             </main>
+            }
+            {
+              allData?.length ===0 && <div className="min-w-[65vw] lg:min-w-[72vw] min-h-[100vh] rounded-md text-xl font-semibold text-green-400 bg-gray-100 p-6 flex items-center justify-center"><h3>There are no content here</h3> </div>
+            }
+           </div>
             <div className="space-x-2 mx-auto pl-4 md:pl-4 lg:pl-6">
               <button
                 onClick={() =>
