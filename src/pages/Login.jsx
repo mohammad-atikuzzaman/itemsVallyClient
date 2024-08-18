@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { loginWithEmailPass } = useContext(AuthContext);
+  const { loginWithEmailPass, loginWithGoogle } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -20,14 +20,25 @@ const Login = () => {
       })
       .catch((err) => alert(err.message));
   };
+
+  const handleGoogleLogin = () => {
+    loginWithGoogle()
+      .then(() => {
+        navigate("/");
+        alert("Login Successful");
+      })
+      .catch((err) => alert(err.message));
+  };
   return (
-    <div className="w-[70%] mx-auto mt-12 p-4 md:p-6 lg:p-8 rounded-lg min-h-[40vh] bg-green-200 flex justify-between ">
-      <div className="w-full space-y-8 pr-4 md:pr-6 lg:pr-8">
+    <div className="w-[70%] mx-auto mt-12 p-4 md:p-6 lg:p-8 rounded-lg min-h-[40vh] bg-green-200 flex flex-col md:flex-row justify-between gap-6">
+      <div className="w-full text-center space-y-8 pr-4 md:pr-6 lg:pr-8">
         <h2 className="font-semibold text-2xl">
           Login with email and password
         </h2>
         <div className="divider">OR</div>
-        <button className="flex items-center gap-2 bg-green-400 hover:bg-green-500 w-full  text-center justify-center font-semibold text-xl p-2 rounded-md">
+        <button
+          onClick={handleGoogleLogin}
+          className="flex items-center gap-2 bg-green-400 hover:bg-green-500 w-full  text-center justify-center font-semibold text-xl p-2 rounded-md">
           <FaGoogle />
           <p>Google</p>
         </button>

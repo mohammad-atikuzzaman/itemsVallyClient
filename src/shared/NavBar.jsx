@@ -155,6 +155,17 @@ const NavBar = () => {
                 </>
               )}
               <div className="divider">OR</div>
+              {user && (
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-green-400 border-b-2 border-green-400"
+                      : "hover:text-green-200"
+                  }
+                  to={"/about"}>
+                  Add Items
+                </NavLink>
+              )}
               {myRoutesPaths.map((routePath) => (
                 <NavLink
                   className={({ isActive }) =>

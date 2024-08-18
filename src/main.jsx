@@ -10,6 +10,7 @@ import DetailsData from "./pages/DetailsData.jsx";
 import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import ContextComponent from "./context/ContextComponent.jsx";
+import RouteProtector from "./protected/RouteProtector.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <AddData></AddData>,
+        element: (
+          <RouteProtector>
+            <AddData></AddData>
+          </RouteProtector>
+        ),
       },
       {
         path: "/details/:id",
