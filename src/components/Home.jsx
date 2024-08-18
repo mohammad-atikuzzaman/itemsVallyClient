@@ -23,10 +23,7 @@ const Home = () => {
   const [brand, setBrand] = useState("");
 
   //sorting system
-  const sortData =(sort)=>{
-    axios(`http://localhost:3000/sort?system=${sort}`)
-    .then(res => setAllData(res.data))
-  }
+  const [sort, sortData] = useState("")
 
   // searching system
   const handleSearch=(e)=>{
@@ -39,7 +36,7 @@ const Home = () => {
 
 
   const fetchAllData = () => {
-    fetch(`http://localhost:3000/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}`)
+    fetch(`http://localhost:3000/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}&sort=${sort}`)
       .then((res) => res.json())
       .then((d) => setAllData(d));
   };
@@ -62,7 +59,7 @@ const Home = () => {
     fetchCategoryAndBrands();
     fetchAllData();
     fetchNumberOfData();
-  }, [category, brand, selected, itemPerPage]);
+  }, [category, brand, selected, itemPerPage, sort]);
 
   return (
     <div className="my-16">
