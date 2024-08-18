@@ -27,6 +27,9 @@ This is a demo e-commerce web site.
 
  ## For Run this Project
  If you want to run this project you local machine, please clone this and run a command <br/>
+
  $ npm i
 
-for user registration and login please manege firebase sdk
+for user registration and login please manege firebase sdk. Then Run
+
+$ npm run dev
