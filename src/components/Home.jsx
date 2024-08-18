@@ -44,7 +44,7 @@ const Home = () => {
       .then((d) => setAllData(d));
   };
   const fetchNumberOfData = () => {
-    fetch("http://localhost:3000/countNumberOfData")
+    fetch(`http://localhost:3000/countNumberOfData?category=${category}&brand=${brand}`)
       .then((res) => res.json())
       .then((d) => setCount(d.counts));
   };
@@ -118,7 +118,7 @@ const Home = () => {
               {categories.map((ca, i) => (
                 <button
                   onClick={() => setCategory(ca)}
-                  className="m-1 bg-green-200 py-0 px-1 font-semibold text-gray-600 rounded-md"
+                  className="m-1 bg-green-200 py-0 px-2 font-semibold text-gray-600 rounded-md"
                   key={i}>
                   {ca}
                 </button>
