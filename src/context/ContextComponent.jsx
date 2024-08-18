@@ -21,7 +21,7 @@ const ContextComponent = ({ children }) => {
   };
 
   const loginWithEmailPass = (email, password) => {
-    return signInWithEmailAndPassword(email, password);
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
   const loginWithGoogle = () => {
@@ -50,7 +50,7 @@ const ContextComponent = ({ children }) => {
     logOut,
     loading,
     setLoading,
-    user
+    user,
   };
 
   return (

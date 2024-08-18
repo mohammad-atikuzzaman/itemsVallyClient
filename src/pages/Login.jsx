@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
+import { AuthContext } from "../context/ContextComponent";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const handleLogin =(e)=>{
+  const navigate = useNavigate();
+  const { loginWithEmailPass } = useContext(AuthContext);
+
+  const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
 
-  }
+    loginWithEmailPass(email, password)
+      .then(() => {
+        navigate("/");
+        alert("Login Successful");
+      })
+      .catch((err) => alert(err.message));
+  };
   return (
     <div className="w-[70%] mx-auto mt-12 p-4 md:p-6 lg:p-8 rounded-lg min-h-[40vh] bg-green-200 flex justify-between ">
       <div className="w-full space-y-8 pr-4 md:pr-6 lg:pr-8">
@@ -44,7 +54,7 @@ const Login = () => {
           <br />
           <input
             type="submit"
-            value="Register"
+            value="Login"
             className="w-full bg-green-400 mt-4 p-2 rounded-md font-semibold cursor-pointer hover:bg-green-500"
           />
         </form>
