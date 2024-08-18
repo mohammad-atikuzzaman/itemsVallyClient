@@ -21,26 +21,41 @@ const Home = () => {
   // those state for filtering data by category and brandName
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(200000);
+  const handleVal = (e) => {
+    e.preventDefault();
+    const minVal = e.target.min.value;
+    const maxVal = e.target.max.value;
+    // console.log(minVal, maxVal)
+    setMinPrice(minVal);
+    setMaxPrice(maxVal);
+  };
 
   //sorting system
-  const [sort, sortData] = useState("")
+  const [sort, sortData] = useState("");
 
   // searching system
-  const handleSearch=(e)=>{
-    e.preventDefault()
-    const name = e.target.name.value
-    console.log(name)
-    axios(`http://localhost:3000/search-data?name=${name}`)
-    .then(res => setAllData(res.data))
-  }
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    console.log(name);
+    axios(`http://localhost:3000/search-data?name=${name}`).then((res) =>
+      setAllData(res.data)
+    );
+  };
 
   const fetchAllData = () => {
-    fetch(`http://localhost:3000/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}&sort=${sort}`)
+    fetch(
+      `http://localhost:3000/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+    )
       .then((res) => res.json())
       .then((d) => setAllData(d));
   };
   const fetchNumberOfData = () => {
-    fetch(`http://localhost:3000/countNumberOfData?category=${category}&brand=${brand}`)
+    fetch(
+      `http://localhost:3000/countNumberOfData?category=${category}&brand=${brand}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+    )
       .then((res) => res.json())
       .then((d) => setCount(d.counts));
   };
@@ -58,7 +73,7 @@ const Home = () => {
     fetchCategoryAndBrands();
     fetchAllData();
     fetchNumberOfData();
-  }, [category, brand, selected, itemPerPage, sort]);
+  }, [category, brand, selected, itemPerPage, sort, minPrice, maxPrice]);
 
   return (
     <div className="my-16">
@@ -144,6 +159,37 @@ const Home = () => {
                   {b}
                 </button>
               ))}
+            </div>
+            <div>
+              <h2 className="font-semibold text-lg text-slate-700">
+                Price Range
+              </h2>
+              <form onSubmit={handleVal}>
+                <label htmlFor="min">Minimum Price :</label>
+                <br />
+                <input
+                  type="number"
+                  defaultValue={0}
+                  name="min"
+                  id="min"
+                  className="border-2 border-x-green-400 rounded-md outline-none"
+                />
+                <br />
+                <label htmlFor="max">Maximum Price :</label>
+                <input
+                  type="number"
+                  defaultValue={400000}
+                  name="max"
+                  id="max"
+                  className="border-2 border-x-green-400 rounded-md outline-none"
+                />
+                <br />
+                <input
+                  type="submit"
+                  value="Provide Value"
+                  className="text-center bg-green-400 w-full p-1 mt-3 rounded-md font-medium"
+                />
+              </form>
             </div>
           </aside>
           <div className="">
