@@ -40,28 +40,28 @@ const Home = () => {
     e.preventDefault();
     const name = e.target.name.value;
     console.log(name);
-    axios(`http://localhost:3000/search-data?name=${name}`).then((res) =>
-      setAllData(res.data)
+    axios(`https://itemsvally.vercel.app/search-data?name=${name}`).then(
+      (res) => setAllData(res.data)
     );
   };
 
   const fetchAllData = () => {
     fetch(
-      `http://localhost:3000/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+      `https://itemsvally.vercel.app/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}`
     )
       .then((res) => res.json())
       .then((d) => setAllData(d));
   };
   const fetchNumberOfData = () => {
     fetch(
-      `http://localhost:3000/countNumberOfData?category=${category}&brand=${brand}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+      `https://itemsvally.vercel.app/countNumberOfData?category=${category}&brand=${brand}&minPrice=${minPrice}&maxPrice=${maxPrice}`
     )
       .then((res) => res.json())
       .then((d) => setCount(d.counts));
   };
 
   const fetchCategoryAndBrands = () => {
-    fetch("http://localhost:3000/filters")
+    fetch("https://itemsvally.vercel.app/filters")
       .then((res) => res.json())
       .then((d) => {
         setCategories(d.categories);
@@ -172,7 +172,7 @@ const Home = () => {
                   defaultValue={0}
                   name="min"
                   id="min"
-                  className="border-2 border-x-green-400 rounded-md outline-none"
+                  className="border-2 border-x-green-400 rounded-md outline-none w-full"
                 />
                 <br />
                 <label htmlFor="max">Maximum Price :</label>
@@ -181,7 +181,7 @@ const Home = () => {
                   defaultValue={400000}
                   name="max"
                   id="max"
-                  className="border-2 border-x-green-400 rounded-md outline-none"
+                  className="border-2 border-x-green-400 rounded-md outline-none w-full"
                 />
                 <br />
                 <input

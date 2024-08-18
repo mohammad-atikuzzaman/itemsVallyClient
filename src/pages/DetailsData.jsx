@@ -1,22 +1,32 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { MdAttachMoney, MdDateRange, MdStar } from 'react-icons/md';
-import { useParams } from 'react-router-dom';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { MdAttachMoney, MdDateRange, MdStar } from "react-icons/md";
+import { useParams } from "react-router-dom";
 
 const DetailsData = () => {
-  const [data, setData]= useState({})
-  const {id}= useParams()
-  console.log(data)
+  const [data, setData] = useState({});
+  const { id } = useParams();
+  console.log(data);
 
-  useEffect(()=>{
-    axios(`http://localhost:3000/details/${id}`)
-    .then(res => setData(res.data))
-  },[id])
-  const {productName, productImage, brandName, category, description, creationTime, price, rating} = data
+  useEffect(() => {
+    axios(`https://itemsvally.vercel.app/details/${id}`).then((res) =>
+      setData(res.data)
+    );
+  }, [id]);
+  const {
+    productName,
+    productImage,
+    brandName,
+    category,
+    description,
+    creationTime,
+    price,
+    rating,
+  } = data;
 
   // time and data modification
-  const d = new Date(`${creationTime}`)
-  const localTime = d.toLocaleString()
+  const d = new Date(`${creationTime}`);
+  const localTime = d.toLocaleString();
 
   return (
     <div className="p-5 mx-auto sm:p-10 md:p-16 bg-green-200 text-white my-6 rounded-lg">
@@ -31,7 +41,7 @@ const DetailsData = () => {
             <p className="inline-block text-2xl font-semibold sm:text-3xl">
               {productName}
             </p>
-            <div className='flex justify-between'>
+            <div className="flex justify-between">
               <div className="text-xs flex  gap-6">
                 By
                 <p className="text-xs hover:underline border px-2 rounded-full">
@@ -41,9 +51,9 @@ const DetailsData = () => {
                   {category}
                 </p>
               </div>
-              <div className='flex items-center border px-2 gap-2 rounded-full'>
-                <MdStar/>
-                <p>{rating? rating : 0}</p>
+              <div className="flex items-center border px-2 gap-2 rounded-full">
+                <MdStar />
+                <p>{rating ? rating : 0}</p>
               </div>
             </div>
             <div className="flex justify-between items-center">
