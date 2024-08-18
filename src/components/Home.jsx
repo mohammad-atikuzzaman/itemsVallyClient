@@ -82,25 +82,31 @@ const Home = () => {
             className="w-[20%] bg-green-400 font-semibold"
           />
         </form>
-
       </div>
       <div className="">
         <section className="text-right">
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="bg-green-100 px-2 rounded-md m-2 font-medium shadow-md">
+            <div
+              tabIndex={0}
+              role="button"
+              className="bg-green-100 px-2 rounded-md m-2 font-medium shadow-md">
               Sort By
             </div>
             <ul
               tabIndex={0}
               className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
               <li>
-                <button onClick={()=> sortData("lowToHigh")}>Price: Low to high</button>
+                <button onClick={() => sortData("lowToHigh")}>
+                  Price: Low to high
+                </button>
               </li>
               <li>
-                <button onClick={()=> sortData("highToLow")}>Price: High to low</button>
+                <button onClick={() => sortData("highToLow")}>
+                  Price: High to low
+                </button>
               </li>
               <li>
-                <button onClick={()=> sortData("latest")}>Newest first</button>
+                <button onClick={() => sortData("latest")}>Newest first</button>
               </li>
             </ul>
           </div>
@@ -114,7 +120,11 @@ const Home = () => {
               {categories.map((ca, i) => (
                 <button
                   onClick={() => setCategory(ca)}
-                  className="m-1 bg-green-200 py-0 px-2 font-semibold text-gray-600 rounded-md"
+                  className={
+                    ca === category
+                      ? "m-1 bg-green-300 py-0 px-1 font-semibold text-gray-600 rounded-md"
+                      : "m-1 bg-slate-300 py-0 px-1 font-semibold text-gray-600 rounded-md"
+                  }
                   key={i}>
                   {ca}
                 </button>
@@ -125,7 +135,11 @@ const Home = () => {
               {brands.map((b, i) => (
                 <button
                   onClick={() => setBrand(b)}
-                  className="m-1 bg-green-200 py-0 px-1 font-semibold text-gray-600 rounded-md"
+                  className={
+                    b === brand
+                      ? "m-1 bg-green-300 py-0 px-1 font-semibold text-gray-600 rounded-md"
+                      : "m-1 bg-slate-300 py-0 px-1 font-semibold text-gray-600 rounded-md"
+                  }
                   key={i}>
                   {b}
                 </button>
@@ -133,18 +147,20 @@ const Home = () => {
             </div>
           </aside>
           <div className="">
-           <div>
-            {
-              allData?.length>0 &&  <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-4 px-4 md:pb-6 md:px-6 lg:pb-8 lg:px-8 min-h-[50vh]">
-              {allData.map((details, i) => (
-                <Card key={i} details={details}></Card>
-              ))}
-            </main>
-            }
-            {
-              allData?.length ===0 && <div className="min-w-[65vw] lg:min-w-[72vw] min-h-[100vh] rounded-md text-xl font-semibold text-green-400 bg-gray-100 p-6 flex items-center justify-center"><h3>There are no content here</h3> </div>
-            }
-           </div>
+            <div>
+              {allData?.length > 0 && (
+                <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-4 px-4 md:pb-6 md:px-6 lg:pb-8 lg:px-8 min-h-[50vh]">
+                  {allData.map((details, i) => (
+                    <Card key={i} details={details}></Card>
+                  ))}
+                </main>
+              )}
+              {allData?.length === 0 && (
+                <div className="min-w-[65vw] lg:min-w-[72vw] min-h-[100vh] rounded-md text-xl font-semibold text-green-400 bg-gray-100 p-6 flex items-center justify-center">
+                  <h3>There are no content here</h3>{" "}
+                </div>
+              )}
+            </div>
             <div className="space-x-2 mx-auto pl-4 md:pl-4 lg:pl-6">
               <button
                 onClick={() =>

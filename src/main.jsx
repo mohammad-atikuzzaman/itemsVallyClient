@@ -1,44 +1,49 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from './components/Home.jsx';
-import AddData from './components/fakecomp/AddData.jsx';
-import DetailsData from './pages/DetailsData.jsx';
+import Home from "./components/Home.jsx";
+import AddData from "./components/fakecomp/AddData.jsx";
+import DetailsData from "./pages/DetailsData.jsx";
+import Register from "./pages/Register.jsx";
+import Login from "./pages/Login.jsx";
+import ContextComponent from "./context/ContextComponent.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App></App>,
-    children:[
+    children: [
       {
         path: "/",
-        element: <Home></Home>
+        element: <Home></Home>,
       },
       {
         path: "/about",
-        element: <AddData></AddData>
+        element: <AddData></AddData>,
       },
       {
         path: "/details/:id",
-        element: <DetailsData></DetailsData>
+        element: <DetailsData></DetailsData>,
       },
       {
         path: "/login",
-        element: <div>login</div>
+        element: <Login></Login>,
       },
       {
         path: "/register",
-        element: <div>register</div>
+        element: <Register></Register>,
       },
-    ]
+    ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ContextComponent>
+      <RouterProvider router={router} />
+    </ContextComponent>
   </StrictMode>
 );
