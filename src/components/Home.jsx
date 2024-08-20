@@ -35,18 +35,18 @@ const Home = () => {
   //sorting system
   const [sort, sortData] = useState("");
 
-  //for searching searching 
-  const [searchQuery, setSearchQuery]= useState("")
+  //for searching searching
+  const [searchQuery, setSearchQuery] = useState("");
   const handleSearch = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
-    setSearchQuery(name)
+    setSearchQuery(name);
   };
 
-  // those functions are used for call api for fetching data 
+  // those functions are used for call api for fetching data
   const fetchAllData = () => {
     fetch(
-      `http://localhost:3000/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}&searchQuery=${searchQuery}`
+      `https://itemsvally.vercel.app/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}&searchQuery=${searchQuery}`
     )
       .then((res) => res.json())
       .then((d) => setAllData(d));
@@ -54,14 +54,14 @@ const Home = () => {
 
   const fetchNumberOfData = () => {
     fetch(
-      `http://localhost:3000/countNumberOfData?category=${category}&brand=${brand}&minPrice=${minPrice}&maxPrice=${maxPrice}&searchQuery=${searchQuery}`
+      `https://itemsvally.vercel.app/countNumberOfData?category=${category}&brand=${brand}&minPrice=${minPrice}&maxPrice=${maxPrice}&searchQuery=${searchQuery}`
     )
       .then((res) => res.json())
       .then((d) => setCount(d.counts));
   };
 
   const fetchCategoryAndBrands = () => {
-    fetch("http://localhost:3000/filters")
+    fetch("https://itemsvally.vercel.app/filters")
       .then((res) => res.json())
       .then((d) => {
         setCategories(d.categories);
@@ -73,7 +73,16 @@ const Home = () => {
     fetchCategoryAndBrands();
     fetchAllData();
     fetchNumberOfData();
-  }, [category, brand, selected, itemPerPage, sort, minPrice, maxPrice, searchQuery]);
+  }, [
+    category,
+    brand,
+    selected,
+    itemPerPage,
+    sort,
+    minPrice,
+    maxPrice,
+    searchQuery,
+  ]);
 
   return (
     <div className="my-16">

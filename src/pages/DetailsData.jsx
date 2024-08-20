@@ -9,7 +9,7 @@ const DetailsData = () => {
   console.log(data);
 
   useEffect(() => {
-    axios(`http://localhost:3000/details/${id}`).then((res) =>
+    axios(`https://itemsvally.vercel.app/details/${id}`).then((res) =>
       setData(res.data)
     );
   }, [id]);
