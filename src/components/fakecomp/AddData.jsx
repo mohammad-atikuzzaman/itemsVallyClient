@@ -24,7 +24,7 @@ const AddData = () => {
     };
     // console.log(sendData)
     axios
-      .post("https://itemsvally.vercel.app/items", sendData)
+      .post("http://localhost:3000/items", sendData)
       .then((res) => {
         if (res.status === 200) {
           alert("Items Added successful");

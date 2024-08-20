@@ -35,33 +35,33 @@ const Home = () => {
   //sorting system
   const [sort, sortData] = useState("");
 
-  // searching system
+  //for searching searching 
+  const [searchQuery, setSearchQuery]= useState("")
   const handleSearch = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
-    console.log(name);
-    axios(`https://itemsvally.vercel.app/search-data?name=${name}`).then(
-      (res) => setAllData(res.data)
-    );
+    setSearchQuery(name)
   };
 
+  // those functions are used for call api for fetching data 
   const fetchAllData = () => {
     fetch(
-      `https://itemsvally.vercel.app/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+      `http://localhost:3000/items?category=${category}&brand=${brand}&page=${selected}&size=${itemPerPage}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}&searchQuery=${searchQuery}`
     )
       .then((res) => res.json())
       .then((d) => setAllData(d));
   };
+
   const fetchNumberOfData = () => {
     fetch(
-      `https://itemsvally.vercel.app/countNumberOfData?category=${category}&brand=${brand}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+      `http://localhost:3000/countNumberOfData?category=${category}&brand=${brand}&minPrice=${minPrice}&maxPrice=${maxPrice}&searchQuery=${searchQuery}`
     )
       .then((res) => res.json())
       .then((d) => setCount(d.counts));
   };
 
   const fetchCategoryAndBrands = () => {
-    fetch("https://itemsvally.vercel.app/filters")
+    fetch("http://localhost:3000/filters")
       .then((res) => res.json())
       .then((d) => {
         setCategories(d.categories);
@@ -73,7 +73,7 @@ const Home = () => {
     fetchCategoryAndBrands();
     fetchAllData();
     fetchNumberOfData();
-  }, [category, brand, selected, itemPerPage, sort, minPrice, maxPrice]);
+  }, [category, brand, selected, itemPerPage, sort, minPrice, maxPrice, searchQuery]);
 
   return (
     <div className="my-16">
@@ -203,7 +203,7 @@ const Home = () => {
               )}
               {allData?.length === 0 && (
                 <div className="min-w-[65vw] lg:min-w-[72vw] min-h-[100vh] rounded-md text-xl font-semibold text-green-400 bg-gray-100 p-6 flex items-center justify-center">
-                  <h3>There are no content here</h3>{" "}
+                  <span className="loading loading-dots loading-lg"></span>
                 </div>
               )}
             </div>
